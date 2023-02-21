@@ -1,0 +1,36 @@
+% ========================
+% = TODO: Document
+% ========================
+
+% Marc's font stack
+\usepackage{cmbright}       % Sans serif
+\usepackage{sourcecodepro}  % Monospace
+\usepackage{float}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{csquotes}
+% Circled numbers (https://tex.stackexchange.com/questions/7032/good-way-to-make-textcircled-numbers)
+%\usepackage{pifont}
+%\ding{\numexpr 171+#1 \relax}
+\newcommand{\circlednumber}[1]{\raisebox{.9pt}{\textcircled{\raisebox{-1.1pt}{#1}}}}
+
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{pdfpages}
+\usepackage{xparse}
+\usepackage{kantlipsum}
+
+\NewDocumentCommand\secpdf{somO{1}m}{% [short title]{section title}[page specification]{filename.pdf} --- possibly starred
+  %\clearpage
+  \thispagestyle{fancy}%
+  \includepdf[%
+    pages=#4,
+    pagecommand={%
+      \IfBooleanTF{#1}{%
+        \section*{#3}}{%
+        \IfNoValueTF{#2}{%
+          \section{#3}}{%
+          \section[#2]{#3}}}},
+    scale=.75,
+    ]%
+    {#5}}

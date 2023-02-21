@@ -1,0 +1,121 @@
+\documentclass[tikz,border=5mm]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{pgfgantt}
+
+\begin{document}
+\definecolor{barblue}{RGB}{66,139,202}
+\definecolor{barbrown}{RGB}{187, 138, 137}
+\definecolor{barviolet}{RGB}{116, 98, 133}
+\definecolor{baryellow}{RGB}{255, 200, 87}
+\definecolor{baropal}{RGB}{206, 223, 217}
+\definecolor{bargreen}{RGB}{51, 204, 51}
+\definecolor{barfushia}{RGB}{255, 0, 255}
+
+\definecolor{groupblue}{RGB}{51,102,254}
+\definecolor{linkred}{RGB}{165,0,33}
+\renewcommand\sfdefault{phv}
+\renewcommand\mddefault{mc}
+\renewcommand\bfdefault{bc}
+\sffamily
+\begin{ganttchart}[
+    x unit=0.4cm, 
+    y unit title=1.2cm, 
+    y unit chart=.6cm, 
+    canvas/.append style={fill=none, draw=black!30, line width=.75pt},
+    hgrid style/.style={draw=black!30, line width=.75pt},
+    vgrid={*1{draw=black!30, line width=.75pt}},
+    % Tell at which week we are right now & style of today line
+    today=8,
+    %today offset=.5,
+    today rule/.style={
+      draw=black!64,
+      dash pattern=on 3.5pt off 4.5pt,
+      line width=1.5pt
+    },
+    today label font=\small\bfseries,
+    today label=Current Week,
+    % Title options
+    title/.style={draw=none, fill=none},
+    title label font=\bfseries\footnotesize,
+    title label node/.append style={below=7pt},
+    include title in canvas=false,
+    % Style of ganttgroup's title
+    bar label font=\mdseries\small\color{black!70},
+    bar label node/.append style={left=0.40cm},
+    % Style of bars
+    bar/.append style={draw=none, fill=black!63},
+    BlueBar/.style={bar incomplete/.append style={fill=barblue}},
+    BrownBar/.style={bar incomplete/.append style={fill=barbrown}},
+    VioletBar/.style={bar incomplete/.append style={fill=barviolet}},
+    YellowBar/.style={bar incomplete/.append style={fill=baryellow}},
+    OpalBar/.style={bar incomplete/.append style={fill=baropal}},
+    GreenBar/.style={bar incomplete/.append style={fill=bargreen}},
+    FushiaBar/.style={bar incomplete/.append style={fill=barfushia}},
+    bar progress label font=\mdseries\footnotesize\color{black!70},
+    % Syle of groups
+    group incomplete/.append style={fill=groupblue},
+    group left shift=0,
+    group right shift=0,
+    group height=.2,
+    group peaks tip position=0,
+    group label node/.append style={left=0.25cm},
+    group progress label font=\bfseries\small,
+    % Syle of milestones
+    milestone label font=\mdseries\small\color{red!60},
+    milestone label node/.append style={left=0.40cm},
+    milestone/.append style={anchor=east,xshift=-1pt},
+    redMile/.style={milestone/.append style={fill=red}},    % Option red milestone
+  ]{1}{18}
+  % Gantt's title = Weeks
+  \gantttitle[
+    title label node/.append style={below left=7pt and -3pt}
+  ]{SEMAINES:\quad1}{1}
+  \gantttitlelist{2,...,16}{1} \\   % Indication of week's number
+  % === Organisation du projet
+  \ganttgroup[]{Organisation du projet}{1}{16} \\
+    \ganttbar[progress=100, BlueBar]{Rédaction du cahier des charges}{1}{2} \\
+    \ganttbar[progress=5, BlueBar]{Rédaction du rapport}{1}{15} \\
+    % === Pâques
+    % \ganttbar[progress=0, GreenBar]{Vacances de Pâques}{9}{9}\\
+    \ganttmilestone[redMile]{Analyse}{6} \\
+    \ganttmilestone[redMile]{Conception}{10} \\
+    \ganttmilestone[redMile]{Implémentation}{14} \\
+    \ganttmilestone[redMile]{Rendu du projet (10.06.22)}{16} \\
+    % \ganttbar[progress=0, BlueBar]{Préparation de la défense finale}{16}{16} \\
+    % \ganttmilestone[redMile]{Défense finale (06-17.06.22)}{17} \\
+  [grid]
+  % === Sprint 1 Analyse
+  \ganttgroup[]{Sprint 1 : Analyse}{1}{5} \\
+    \ganttbar[progress=100, BrownBar]{Analyse de Unity et ses alternatives}{2}{2} \\
+    \ganttbar[progress=20, BrownBar]{Analyse des devices}{2}{4} \\
+    \ganttbar[progress=0, BrownBar]{Analyse de la génération d'exécutables}{3}{5} \\
+    \ganttbar[progress=0, BrownBar]{Analyse de l'intégration de ressources post-build}{3}{5} \\
+  [grid]
+  % === Sprint 2  Conception
+  \ganttgroup[]{Sprint 2 : Conception}{6}{10} \\
+    \ganttbar[progress=0, OpalBar]{Conception des JSON de configuration}{6}{7} \\
+    \ganttbar[progress=0, OpalBar]{Conception de la génération des exécutables}{7}{8} \\
+    \ganttbar[progress=0, OpalBar]{Conception du module moteur de jeu}{8}{10} \\
+    \ganttbar[progress=0, OpalBar]{Conception du module configuration}{8}{10} \\
+    \ganttbar[progress=0, OpalBar]{Conception du module de log}{8}{10} \\
+    % === Pâques
+    % \ganttbar[progress=0, GreenBar]{Vacances de Pâques}{9}{9}\\
+  [grid]
+% === Sprint 3  Implémentation
+  \ganttgroup[]{Sprint 3 : Implémentation et tests fonctionnels}{10}{15} \\
+    \ganttbar[progress=0, VioletBar]{Implémentation module moteur de jeu}{10}{14} \\
+    \ganttbar[progress=0, VioletBar]{Implémentation génération d'exécutables}{11}{13} \\
+    \ganttbar[progress=0, VioletBar]{Implémentation module de log}{13}{14} \\
+    \ganttbar[progress=0, VioletBar]{Implémentation module configutation}{13}{15} \\
+  [grid]
+  % === Sprint 4 Tests
+  \ganttgroup[]{Sprint 4 : Tests utilisateurs}{13}{16} \\
+    \ganttbar[progress=0, YellowBar]{Choix et préparation des tests}{13}{13} \\
+    \ganttbar[progress=0, YellowBar]{Réalisation de tests}{14}{15} \\
+    \ganttbar[progress=0, YellowBar]{Analyse et rapport de tests}{15}{16} \\
+  [grid]
+ 
+\end{ganttchart}
+\end{document}

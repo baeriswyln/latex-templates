@@ -1,0 +1,132 @@
+% ======================
+% Author: Lucy Linder
+% https://github.com/derlin/latex-report-template
+% =====================
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{admonitionbox}
+
+\RequirePackage{mdframed}
+\RequirePackage{fontawesome}
+\RequirePackage{xcolor}
+
+
+%% ADMINITION-LIKE BOXES
+% info, note and warning boxes a bit similar to 
+% https://squidfunk.github.io/mkdocs-material/extensions/admonition/
+%
+% usage example: 
+%
+%  \begin{infobox}
+%     body text  
+%  \end{infobox}
+%
+%  \begin{infobox}[my title]
+%     body text  
+%  \end{infobox}
+%
+% available environments:
+%
+% - infobox
+% - notebox
+% - warnbox
+% - dangerbox
+%
+% You can also use admonitionbox, but it requires 3 arguments: title, fg, bg.
+%
+
+% ------------------
+
+%% == \normalpar 
+% use the normal parskip and parindent, useful
+% inside floating environments...
+% !! works only if parX is defined BEFORE importing
+% this package ! 
+\newlength{\originalparskip}
+\setlength{\originalparskip}{\parskip}
+\newlength{\originalparindent}
+\setlength{\originalparindent}{\parindent}
+
+\newcommand{\normalpar}{%
+    \setlength{\parskip}{\originalparskip}
+    \setlength{\parindent}{\originalparindent}
+}
+
+% ------------------
+
+%% == Default admonition box. 
+% arguments: {title}{fg color name}{bg color name}
+\newenvironment{admonitionbox}[3]{%
+    \begin{mdframed}[%
+        frametitle={#1},
+        skipabove=\baselineskip plus 2pt minus 1pt,
+        skipbelow=\baselineskip plus 2pt minus 1pt,
+        frametitleaboveskip= 7pt,
+        frametitlebelowskip= 7pt,
+        innertopmargin=10pt,
+        innerbottommargin=10pt,
+        %innerrightmargin=0pt,
+        linewidth=4pt,
+        topline=false, bottomline=false, rightline=false,
+        frametitlerule=false,
+        roundcorner=0pt,
+        linecolor=#2,
+        frametitlebackgroundcolor=#3,
+        %startinnercode={\parindent=0pt},
+    ]%
+    }{\end{mdframed}}
+
+% ------------------
+
+%% == NOTE box with optional title (=> use [])
+\definecolor{noteboxfgcolor}{HTML}{448aff}
+\definecolor{noteboxbgcolor}{HTML}{edf2ff}
+
+\newenvironment{notebox}[1][]{%
+    \begin{admonitionbox}{%
+    \textcolor{noteboxfgcolor}{\faPencil{}} #1}%
+    {noteboxfgcolor}{noteboxbgcolor}%
+    }{\end{admonitionbox}}
+
+%% == INFO box with optional title (=> use [])
+\definecolor{infoboxfgcolor}{HTML}{00b8d4}
+\definecolor{infoboxbgcolor}{HTML}{eaf8fb}
+
+\newenvironment{infobox}[1][]{
+    \begin{admonitionbox}{%
+    \textcolor{infoboxfgcolor}{\faInfoCircle{}} #1}%
+    {infoboxfgcolor}{infoboxbgcolor}%
+    }{\end{admonitionbox}}
+
+%% == WARNING box with optional title (=> use [])
+\definecolor{warnboxfgcolor}{HTML}{ff9100}
+\definecolor{warnboxbgcolor}{HTML}{fff4e7}
+
+\newenvironment{warnbox}[1][]{
+    \begin{admonitionbox}{%
+    \textcolor{warnboxfgcolor}{\faWarning{}} #1}%
+    {warnboxfgcolor}{warnboxbgcolor}%
+    }{\end{admonitionbox}}
+
+%% == DANGER box with optional title (=> use [])
+\definecolor{dangerboxfgcolor}{HTML}{ff1744}
+\definecolor{dangerboxbgcolor}{HTML}{ffe6ed}
+
+\newenvironment{dangerbox}[1][]{
+    \begin{admonitionbox}{%
+    \textcolor{dangerboxfgcolor}{\faFlash{}} #1}%
+    {dangerboxfgcolor}{dangerboxbgcolor}%
+    }{\end{admonitionbox}}
+
+%% == BULB box with optional title (=> use [])
+\definecolor{bulbboxfgcolor}{HTML}{FFD600}
+\definecolor{bulbboxbgcolor}{HTML}{faf7e4}
+
+\newenvironment{bulbbox}[1][]{
+    \begin{admonitionbox}{%
+    \textcolor{bulbboxfgcolor}{\faLightbulbO{}} #1}%
+    {bulbboxfgcolor}{bulbboxbgcolor}%
+    }{\end{admonitionbox}}
+
+
+\endinput
