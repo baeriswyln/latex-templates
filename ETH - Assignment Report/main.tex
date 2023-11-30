@@ -1,0 +1,146 @@
+\documentclass[11pt,a4paper,BCOR=12mm, oneside, openright]{scrartcl} 
+\usepackage[scaled]{helvet}
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{ifthen}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{makecell}
+\usepackage{booktabs}
+\usepackage{sectsty}
+\usepackage{svg}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage[margin=1in]{geometry}
+\setcounter{secnumdepth}{0}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,              
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+\input{metadata}
+
+%\KOMAoptions{optionenliste}
+%\KOMAoptions{Option}{Werteliste}
+
+
+\addtokomafont{caption}{\small}
+\setkomafont{captionlabel}{\normalfont
+	\bfseries}
+\let\oldtabular\tabular
+\renewcommand{\tabular}{\sffamily\oldtabular}
+\KOMAoptions{abstract=true}
+\renewcommand\familydefault{\sfdefault}
+\renewcommand{\arraystretch}{1.1}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+\setlength{\textheight}{235mm}
+\allsectionsfont{\normalfont\scshape \bfseries}
+\let\tmp\oddsidemargin
+\let\oddsidemargin\evensidemargin
+\let\evensidemargin\tmp
+\reversemarginpar
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+
+%\sffamily
+\fancypagestyle{plain}
+{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0.5pt}
+  \fancyhf{}%
+  \fancyfoot[R]{\emph{\footnotesize Page \thepage\ of \pageref{LastPage}}}%
+  \fancyfoot[L]{\emph{\footnotesize \authorname}\\ \emph{\footnotesize \authorlegi}}%
+}
+
+
+\thispagestyle{plain}
+
+\titlehead
+{
+    \begin{center}
+    \begin{minipage}[t]{.33\textwidth}
+    \begin{flushleft}
+        ~\\
+        \includesvg[width=\textwidth]{img/eth_logo_kurz_pos.svg}
+    \end{flushleft}
+    \end{minipage}
+    \hfill\begin{minipage}[t]{.4\textwidth}
+    \begin{flushright}
+        \authordepartment\\%
+        \authorinstitute ~\\%
+        \authorlevel%
+    \end{flushright}
+    \end{minipage}
+    \end{center}
+}
+\subject{\vspace{-1ex} \horrule{2pt}\\[0.15cm] {\textsc{\texttt{\coursename}}}}
+\title{\hwtitle\\[0.5cm]}
+\subtitle{\textsc{\texttt{\hwsubtitle}}\\\horrule{2pt}\\[0.5cm]}
+\author{\bfseries{\authorname}\vspace{-2ex}}
+\date{\begin{tabular}{cc}
+  \textsc{Date:}& \textsc{\emph{\today}}\\
+  \textsc{Due :}& \textsc{\emph{\hwduedate}}\vspace{3ex}
+\end{tabular}}
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+%--------------------------------------------
+
+\tableofcontents
+
+\include{section/intro}
+
+\newpage
+
+%-------------------------------
+\fancypagestyle{plain}
+{%
+  \renewcommand{\headrulewidth}{0.5pt}%
+  \renewcommand{\footrulewidth}{0.5pt}
+  \fancyhf{}%
+  \fancyhead[R]{\emph{\footnotesize \hwtitle}}
+  \fancyhead[L]{\emph{\footnotesize \coursename}}
+  \fancyfoot[R]{\emph{\footnotesize Page \thepage\ of \pageref{LastPage}}}%
+  \fancyfoot[L]{\emph{\footnotesize \authorname}\\ \emph{\footnotesize \authorlegi}}%
+}
+
+\pagestyle{plain}
+
+\include{sections/section1}
+
+
+\end{document}
